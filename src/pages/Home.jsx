@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
 import {useNavigate} from "react-router-dom"
+import backend_url from "../utils/backend_url"
 const EvalCard = ({name, onClick} ) => {
     return <div onClick= {onClick}>
         <div>{name}</div>
@@ -12,14 +13,14 @@ export const Home = () => {
     let [evalData, setEvalData] = useState([])
     useEffect ( ()=>{
         async function getData ( ) {
-            let res = await axios.get("http://localhost:4000/show-exam")
+            let res = await axios.get(`${backend_url}/show-exam`)
             setEvalData(res.data)
         }
         getData()
     },[])
     const startAssignment = async ( id ) => {
         console.log(id)
-        let res = await axios.post(`http://localhost:4000/start-assignment/${id}`,null, {
+        let res = await axios.post(`${backend_url}/start-assignment/${id}`,null, {
             headers : {
                 authentication : `bearer ${localStorage.getItem("token")}`
             }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {useNavigate} from "react-router-dom"
 import axios from "axios"
+import backend_url from "../utils/backend_url"
 export const Login = () => {
     let [form, setForm] = useState({});
     const navigate = useNavigate()
@@ -12,7 +13,7 @@ export const Login = () => {
     const loginUser = async (  ) => {
         //login logic
         try {
-            let res = await axios.post("http://localhost:4000/login", form);
+            let res = await axios.post(`${backend_url}/login`, form);
             let token = res.data.token;
             localStorage.setItem("token", token)
             navigate({ pathname: '/home' })
